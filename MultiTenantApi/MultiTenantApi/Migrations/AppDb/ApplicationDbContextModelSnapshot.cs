@@ -2,20 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MultiTenantApi.Common.Base.Contexts;
 
 #nullable disable
 
-namespace MultiTenantApi.Migrations
+namespace MultiTenantApi.Migrations.AppDb
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231121001055_initial")]
-    partial class initial
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,7 +30,6 @@ namespace MultiTenantApi.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
@@ -48,7 +44,7 @@ namespace MultiTenantApi.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("MultiTenantApi.Application.Models.Tenant", b =>
+            modelBuilder.Entity("MultiTenantApi.Common.Models.Tenant", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");

@@ -7,25 +7,26 @@ namespace MultiTenantApi.Common.Base.Services
 {
     public class TenantConfigurationService : ITenantConfigurationService
     {
-        private readonly TenantDbContext _context;
+        private readonly TenantDbContext _tenantDbcontext;
         public string TenantId { get; set; }
 
-        public TenantConfigurationService(TenantDbContext context)
+        public TenantConfigurationService(TenantDbContext tenantDbcontext)
         {
-            _context = context;
-
+            _tenantDbcontext = tenantDbcontext;
+            TenantId = string.Empty;
         }
 
         public async Task<bool> SetTenant(string tenant)
         {
-            Tenant? tenantInfo = await _context.Tenants.Where(x => x.Id == tenant).FirstOrDefaultAsync();
+            Tenant? tenantInfo = await _tenantDbcontext.Tenants.Where(x => x.Id == tenant).FirstOrDefaultAsync();
             if (tenantInfo != null)
             {
-                TenantId = tenant;
+                TenantId = tenantInfo.Id;
                 return true;
             }
             else
             {
+                // TODO log error
                 throw new Exception("Tenant invalid");
             }
         }

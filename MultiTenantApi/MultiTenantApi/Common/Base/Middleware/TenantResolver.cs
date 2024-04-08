@@ -16,9 +16,10 @@ namespace MultiTenantApi.Common.Base.Middleware
         public async Task InvokeAsync(HttpContext context, ITenantConfigurationService tenantConfigurationService)
         {
             context.Request.Headers.TryGetValue("tenant", out var tenantFromHeader);
-            if (!string.IsNullOrEmpty(tenantFromHeader))
+            string? tenant = tenantFromHeader.FirstOrDefault();
+            if (!string.IsNullOrEmpty(tenant))
             {
-                await tenantConfigurationService.SetTenant(tenantFromHeader);
+                await tenantConfigurationService.SetTenant(tenant);
             }
 
             await _next(context);

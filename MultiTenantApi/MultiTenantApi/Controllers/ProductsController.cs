@@ -13,6 +13,8 @@ public class ProductsController : ControllerBase
         _productService = productService;
     }
 
+    // TODO request url should be aligned with method names, right now we every request is port/api/Products
+
     [HttpGet]
     public IActionResult GetAllProducts()
     {

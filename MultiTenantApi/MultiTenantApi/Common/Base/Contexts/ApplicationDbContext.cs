@@ -8,7 +8,7 @@ namespace MultiTenantApi.Common.Base.Contexts
     public class ApplicationDbContext : DbContext
     {
         private readonly ITenantConfigurationService _tenantConfigurationService;
-        public string? CurrentTenantId { get; set; }
+        public string CurrentTenantId { get; set; }
 
         public ApplicationDbContext(ITenantConfigurationService tenantConfigurationService, DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -16,8 +16,8 @@ namespace MultiTenantApi.Common.Base.Contexts
             CurrentTenantId = _tenantConfigurationService.TenantId;
         }
 
-        public DbSet<Product> Products { get; set; }
         public DbSet<Tenant> Tenants { get; set; }
+        public DbSet<Product> Products { get; set; }
 
         // On Model Creating - multitenancy query filters 
         protected override void OnModelCreating(ModelBuilder builder)
