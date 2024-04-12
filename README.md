@@ -1,5 +1,5 @@
 
-A multi tenant .Net Core API
+# A multi tenant .Net Core API
 
 Multitenancy within the same data store is achieved by extracting a tenantId from the request by use of middleware, 
 and setting that value in a scoped service. The value is then used within ApplicationDbContext as a global query filter. 
